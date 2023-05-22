@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="persistence-data">
+        <class>com.laptrinhweb.entity.AddressEntity</class>
+        <class>com.laptrinhweb.entity.CartEntity</class>
+        <class>com.laptrinhweb.entity.CartItemEntity</class>
+        <class>com.laptrinhweb.entity.ContactEntity</class>
+        <class>com.laptrinhweb.entity.CommentBlogEntity</class>
+        <class>com.laptrinhweb.entity.CommentProductEntity</class>
+        <class>com.laptrinhweb.entity.GenreEntity</class>
+        <class>com.laptrinhweb.entity.ManufacturerEntity</class>
+        <class>com.laptrinhweb.entity.OrderEntity</class>
+        <class>com.laptrinhweb.entity.OrderItemEntity</class>
+        <class>com.laptrinhweb.entity.ProductEntity</class>
+        <class>com.laptrinhweb.entity.RoleEntity</class>
+        <class>com.laptrinhweb.entity.UserEntity</class> 
+        <class>com.laptrinhweb.entity.BlogEntity</class> 
+        <class>com.laptrinhweb.entity.CategoryBlogEntity</class> 
+        <class>com.laptrinhweb.entity.WishListEntity</class> 
+        <class>com.laptrinhweb.entity.WishListProductEntity</class> 
+        
+    </persistence-unit>
+</persistence>
