@@ -33,7 +33,6 @@ public class UserService implements IUserService {
 	private IAddressRepository addressRepository;
 	@Autowired
 	private PasswordEncoder encoder;
-
 	@Autowired
 	private UserMapper userMapper;
 
@@ -41,39 +40,37 @@ public class UserService implements IUserService {
 	public UserDto createAccount(UserDto userDto) {
 		if (userRepository.findOneByUserName(userDto.getUserName()) != null) {
 			return null;
-		} else {
-			boolean loginWithSocial = false;
-			if (userDto.getPassword() == "" || userDto.getPassword() == null) {
-				// trường hợp này có nghĩa là người dùng đăng nhập bằng gg hoặc fb
-				String password = UUID.randomUUID().toString();
-				userDto.setPassword(password);
-				userDto.setUserName(userDto.getEmail());
-				loginWithSocial = true;
-			}
-			// mã hóa mật khẩu
-			String passwordEncode = encoder.encode(userDto.getPassword());
-			UserEntity result = userMapper.toEntity(userDto);
-			// set danh sách các role cho user
-			List<RoleEntity> roles = new ArrayList<>();
-			roles.add(roleRepository.findOneByName(SystemConstant.USER));
-			result.setRoles(roles);
-			result.setActive(SystemConstant.ACTIVE);
-			result.setPassword(passwordEncode);
-			result = userRepository.save(result);
-			// khi tạo account, đồng thời tạo luôn address mặc định cho user
-			if (loginWithSocial == false) {
-				AddressEntity addressEntity = new AddressEntity();
-				addressEntity.setFullName(result.getFullName());
-				addressEntity.setAddress(userDto.getAddress());
-				addressEntity.setEmail(result.getEmail());
-				addressEntity.setPhoneNumber(result.getPhoneNumber());
-				addressEntity.setUser(result);
-				addressEntity.setDefaultAddress(true);
-				addressRepository.save(addressEntity);
-			}
-
-			return userMapper.toDTO(result);
 		}
+		boolean loginWithSocial = false;
+		if (userDto.getPassword() == "" || userDto.getPassword() == null) {
+			// Người dùng đăng nhập bằng Google hoặc Facebook
+			String password = UUID.randomUUID().toString();
+			userDto.setPassword(password);
+			userDto.setUserName(userDto.getEmail());
+			loginWithSocial = true;
+		}
+
+		String passwordEncode = encoder.encode(userDto.getPassword());
+		UserEntity result = userMapper.toEntity(userDto);
+
+		List<RoleEntity> roles = new ArrayList<>();
+		roles.add(roleRepository.findOneByName(SystemConstant.USER));
+		result.setRoles(roles);
+		if (loginWithSocial) {
+			result.setActive(SystemConstant.ACTIVE);
+		} else {
+			result.setActive(SystemConstant.INACTIVE);
+			result.setVerifyCode(textRandom());
+		}
+		result.setPassword(passwordEncode);
+		result = userRepository.save(result);
+		if (!loginWithSocial) {
+			AddressEntity addressEntity = new AddressEntity(userDto.getEmail(), userDto.getFullName(),
+					userDto.getPhoneNumber(), userDto.getAddress(), true, result);
+			addressRepository.save(addressEntity);
+		}
+
+		return userMapper.toDTO(result);
 	}
 
 	@Override
@@ -101,14 +98,11 @@ public class UserService implements IUserService {
 		if (!encoder.matches(oldPassword, user.getPassword())) {
 			return null;
 		}
-
 		// Mã hóa mật khẩu mới
 		String encodedPassword = encoder.encode(newPassword);
-
 		// Cập nhật mật khẩu mới cho người dùng trong cơ sở dữ liệu
 		user.setPassword(encodedPassword);
 		user = userRepository.save(user);
-
 		// Trả về đối tượng UserDto để thông báo cho người dùng rằng thay đổi mật khẩu
 		// đã thành công
 		return userMapper.toDTO(user);
@@ -123,4 +117,33 @@ public class UserService implements IUserService {
 		return userMapper.entityToMyUser(user);
 	}
 
+	@Override
+	public UserDto getUserByEmailAndUserName(String email, String userName) {
+		UserEntity user = userRepository.findOneByUserNameAndEmail(userName, email);
+		return (user == null) ? null : userMapper.toDTO(user);
+	}
+
+	@Override
+	public String resetPassword(UserDto userInput) {
+		String password = textRandom();
+		String encodedPassword = encoder.encode(password);
+		userInput.setPassword(encodedPassword);
+		userRepository.save(userMapper.toEntity(userInput));
+		return password;
+	}
+
+	private String textRandom() {
+		return UUID.randomUUID().toString().substring(0, 8);
+	}
+
+	@Override
+	public UserDto verifyUser(int id, String verifyCode) {
+		UserEntity user = userRepository.findOneByIdAndVerifyCode(id, verifyCode);
+		if (user != null) {
+			user.setActive(SystemConstant.ACTIVE);
+			user = userRepository.save(user);
+			return userMapper.toDTO(user);
+		}
+		return null;
+	}
 }

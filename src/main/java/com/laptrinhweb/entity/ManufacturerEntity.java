@@ -10,8 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "manufacturer")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ManufacturerEntity {
 
 	@Id
@@ -29,45 +38,5 @@ public class ManufacturerEntity {
 
 	@OneToMany(mappedBy = "manufacturer")
 	private List<ProductEntity> listProduct;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getManufacturerName() {
-		return manufacturerName;
-	}
-
-	public void setManufacturerName(String manufacturerName) {
-		this.manufacturerName = manufacturerName;
-	}
-
-	public List<ProductEntity> getListProduct() {
-		return listProduct;
-	}
-
-	public void setListProduct(List<ProductEntity> listProduct) {
-		this.listProduct = listProduct;
-	}
 
 }

@@ -55,6 +55,7 @@ public class JpaConfig {
 		properties.setProperty("hibernate.hbm2ddl.auto", "none");
 //		properties.setProperty("hibernate.hbm2ddl.auto", "update");
 		properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");// many to many in userentity
+		properties.setProperty("show_sql", "true");
 		return properties;
 	}
 

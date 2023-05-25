@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.laptrinhweb.constant.SystemConstant;
 import com.laptrinhweb.dto.MyUser;
 import com.laptrinhweb.dto.OrderDto;
-import com.laptrinhweb.entity.AddressEntity;
 import com.laptrinhweb.entity.CartEntity;
 import com.laptrinhweb.entity.CartItemEntity;
 import com.laptrinhweb.entity.OrderEntity;
@@ -73,7 +72,10 @@ public class CheckoutService implements ICheckOutService {
 		orderEntity.setNote(note);
 		orderEntity.setUserOrder(cartEntity.getUser());
 		orderEntity.setStatus(SystemConstant.PROCESSING);
-		orderEntity.setAddress(addressMapper.toEntity(user.getAddress(), AddressEntity.class));
+		orderEntity.setAddress(user.getAddress().getAddress());
+		orderEntity.setEmail(user.getAddress().getEmail());
+		orderEntity.setFullName(user.getAddress().getFullName());
+		orderEntity.setPhoneNumber(user.getAddress().getPhoneNumber());
 		orderEntity = checkoutRepository.save(orderEntity);
 
 		// lưu các item của đơn hàng đó

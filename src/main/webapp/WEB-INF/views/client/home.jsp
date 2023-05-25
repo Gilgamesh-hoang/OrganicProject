@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>	
+<c:url var="cartAPI" value="/gio-hang"/>
+<c:url var="homeURL" value="/trang-chu"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +22,7 @@
     <link rel="stylesheet" href='<c:url value="/css/owl.carousel.min.css"/>' >
     <link rel="stylesheet" href='<c:url value="/css/slicknav.min.css"/>' >
     <link rel="stylesheet" href='<c:url value="/css/style.css"/>' >
+     <script src='<c:url value="/js/jquery-3.3.1.min.js"/>'></script>
 </head>
 
 <body>
@@ -111,6 +114,7 @@
 	                        <div class="featured__item__pic set-bg" data-setbg="img/product/${product.image}">
 	                            <ul class="featured__item__pic__hover">
 	                                <li><a href='<c:url value="/danh-sach-yeu-thich/them?productId=${product.id}"/>'><i class="fa fa-heart"></i></a></li>
+	                                <%-- <li><button id="addCart" type="button" onclick="addToCart(${product.id})"  data-toggle="tooltip" title='Thêm vào giỏ hàng'><i class="fa fa-shopping-cart"></i></button></li> --%>
 	                                <li><a href='<c:url value="/gio-hang/them?productId=${product.id}"/>'><i class="fa fa-shopping-cart"></i></a></li>
 	                            </ul>
 	                        </div>
@@ -196,9 +200,26 @@
     <%@ include file="/common/client/footer.jsp" %>
     <!-- Footer Section End -->
 
-
+	<!-- <script>
+		function addToCart(data) {
+			$.ajax({
+				url: '${cartAPI}',
+				type: 'POST',
+				data: { productId: data },
+				success: function(result) {
+					alert('Sản phẩm đã được thêm vào giỏ hàng');
+				},
+				error: function(result) {
+					/* window.location.href = "${newURL}?page=1&limit=6&message=error_system"; */
+					alert("loi");
+				}
+				
+			});
+		}
+	
+	</script> -->
     <!-- Js Plugins -->
-    <script src='<c:url value="/js/jquery-3.3.1.min.js"/>'></script>
+   
     <script src='<c:url value="/js/bootstrap.min.js"/>'></script>
     <script src='<c:url value="/js/jquery.nice-select.min.js"/>'></script>
     <script src='<c:url value="/js/jquery-ui.min.js"/>'></script>

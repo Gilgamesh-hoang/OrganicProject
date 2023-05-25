@@ -13,8 +13,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "cart")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CartEntity {
 
 	@Id
@@ -33,45 +42,5 @@ public class CartEntity {
 
 	@OneToMany(mappedBy = "cart")
 	private List<CartItemEntity> items;
-
-	public int getCartId() {
-		return cartId;
-	}
-
-	public void setCartId(int cartId) {
-		this.cartId = cartId;
-	}
-
-	public List<CartItemEntity> getItems() {
-		return items;
-	}
-
-	public void setItems(List<CartItemEntity> items) {
-		this.items = items;
-	}
-
-	public double getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	public int getTotalQuantity() {
-		return totalQuantity;
-	}
-
-	public void setTotalQuantity(int totalQuantity) {
-		this.totalQuantity = totalQuantity;
-	}
-
-	public UserEntity getUser() {
-		return user;
-	}
-
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
 
 }

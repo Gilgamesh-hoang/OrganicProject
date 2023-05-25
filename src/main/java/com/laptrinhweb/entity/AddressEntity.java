@@ -1,18 +1,15 @@
 package com.laptrinhweb.entity;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,9 +18,18 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "address")
 @EntityListeners(AuditingEntityListener.class) // de su dung createdBy..., duoc cau hinh trong jpaAuditingConfig
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddressEntity {
 
 	@Id
@@ -42,9 +48,6 @@ public class AddressEntity {
 	@Column(name = "address")
 	private String address;
 
-	@Column(name = "enable")
-	private boolean enable;
-
 	@Column(name = "is_default")
 	private boolean defaultAddress;
 
@@ -62,95 +65,15 @@ public class AddressEntity {
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
 
-	@OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
-	private List<OrderEntity> order;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public boolean isEnable() {
-		return enable;
-	}
-
-	public void setEnable(boolean enable) {
-		this.enable = enable;
-	}
-
-	public List<OrderEntity> getOrder() {
-		return order;
-	}
-
-	public void setOrder(List<OrderEntity> order) {
-		this.order = order;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
+	public AddressEntity(String email, String fullName, String phoneNumber, String address, boolean defaultAddress,
+			UserEntity user) {
+		super();
 		this.email = email;
-	}
-
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
 		this.fullName = fullName;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public Date getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public UserEntity getUser() {
-		return user;
-	}
-
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
-
-	public boolean isDefaultAddress() {
-		return defaultAddress;
-	}
-
-	public void setDefaultAddress(boolean defaultAddress) {
 		this.defaultAddress = defaultAddress;
+		this.user = user;
 	}
 
 }

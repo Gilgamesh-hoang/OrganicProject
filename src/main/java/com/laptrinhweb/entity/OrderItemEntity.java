@@ -10,8 +10,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "checkout_item")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderItemEntity {
 
 	@Id
@@ -31,45 +40,5 @@ public class OrderItemEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
 	private OrderEntity orderEntity;
-
-	public ProductEntity getProduct() {
-		return product;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setProduct(ProductEntity product) {
-		this.product = product;
-	}
-
-	public double getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public OrderEntity getOrderEntity() {
-		return orderEntity;
-	}
-
-	public void setOrderEntity(OrderEntity orderEntity) {
-		this.orderEntity = orderEntity;
-	}
 
 }

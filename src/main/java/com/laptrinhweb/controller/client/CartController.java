@@ -22,7 +22,6 @@ public class CartController extends BaseController {
 		mvShare.addObject("cart", cartService.getCart());
 		mvShare.setViewName("/client/cart");
 		return mvShare;
-
 	}
 
 	@RequestMapping("/gio-hang/them")

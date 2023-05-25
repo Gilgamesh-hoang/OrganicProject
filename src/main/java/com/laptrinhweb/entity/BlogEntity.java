@@ -22,9 +22,18 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "blog")
 @EntityListeners(AuditingEntityListener.class) // de su dung createdBy..., duoc cau hinh trong jpaAuditingConfig
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class BlogEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -66,93 +75,5 @@ public class BlogEntity {
 	@Temporal(TemporalType.DATE)
 	@LastModifiedDate
 	private Date modifiedDate;
-
-	public int getBlogId() {
-		return blogId;
-	}
-
-	public void setBlogId(int blogId) {
-		this.blogId = blogId;
-	}
-
-	public List<CommentBlogEntity> getListComment() {
-		return listComment;
-	}
-
-	public void setListComment(List<CommentBlogEntity> listComment) {
-		this.listComment = listComment;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getShortDescription() {
-		return shortDescription;
-	}
-
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
-	}
-
-	public CategoryBlogEntity getCategory() {
-		return category;
-	}
-
-	public void setCategory(CategoryBlogEntity category) {
-		this.category = category;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public Date getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
 
 }

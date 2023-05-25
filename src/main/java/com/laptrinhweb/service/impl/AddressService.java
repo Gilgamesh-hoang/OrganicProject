@@ -30,8 +30,7 @@ public class AddressService implements IAddressService {
 	public List<AddressDto> getAll() {
 		MyUser myUser = SecurityUtils.getPrincipal();
 		UserEntity userEntity = userRepository.findOne(myUser.getId());
-		// chỉ lấy ra danh sách địa chỉ enable = true
-		List<AddressEntity> listEntities = addressRepository.findAllByUserAndEnable(userEntity, true);
+		List<AddressEntity> listEntities = addressRepository.findAllByUser(userEntity);
 		return addressMapper.toDTO(listEntities);
 	}
 
@@ -50,7 +49,6 @@ public class AddressService implements IAddressService {
 			UserEntity userEntity = userRepository.findOne(myUser.getId());
 			addressEntity = addressMapper.toEntity(address, AddressEntity.class);
 			addressEntity.setUser(userEntity);
-			addressEntity.setEnable(true);
 		} else {// sửa
 			addressEntity = addressRepository.findOne(address.getId());
 			addressMapper.updateData(addressEntity, address);
@@ -62,12 +60,7 @@ public class AddressService implements IAddressService {
 
 	@Override
 	public void deleteAddress(int addressId) {
-		// không xóa địa chỉ mà chỉ enable bằng false, vì nếu xóa sẽ ảnh hưởng đến
-		// address_id của bảng checkout
-		AddressEntity address = addressRepository.findOne(addressId);
-		address.setEnable(false);
-		address.setDefaultAddress(false);
-		addressRepository.save(address);
+		addressRepository.delete(addressId);
 	}
 
 	@Override

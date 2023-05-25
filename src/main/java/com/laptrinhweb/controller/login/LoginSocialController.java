@@ -17,16 +17,19 @@ import com.laptrinhweb.dto.MyUser;
 import com.laptrinhweb.dto.UserSocial;
 import com.laptrinhweb.mapper.UserMapper;
 import com.laptrinhweb.service.IUserService;
+import com.laptrinhweb.util.FaceBookUtil;
 import com.laptrinhweb.util.GoogleUtils;
 
 @Controller
-public class LoginGoogleController extends BaseController {
+public class LoginSocialController extends BaseController {
 	@Autowired
 	private GoogleUtils googleUtils;
 	@Autowired
 	private IUserService userService;
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private FaceBookUtil restFB;
 
 	@RequestMapping("/login-google")
 	public String loginGoogle(HttpServletRequest request) throws ClientProtocolException, IOException {
@@ -50,6 +53,31 @@ public class LoginGoogleController extends BaseController {
 		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
+		return "redirect:trang-chu";
+	}
+
+	/**
+	 * Lấy code mà facebook gửi về sau đó đổi code sang access token. Sử dụng
+	 * accesstoken lấy thông tin user (có thể thực hiện lưu lại thông tin vào
+	 * database để quản lý). Chuyển thông tin user sang đối tượng UserDetails để
+	 * spring security quản lý. Sử dụng đối tượng UserDetails trên giống như thông
+	 * tin authentication (tương đương với đăng nhập bằng username/password)
+	 */
+	@RequestMapping("/login-facebook")
+	public String loginFacebook(HttpServletRequest request) {
+		String code = request.getParameter("code");
+		String accessToken = "";
+		try {
+			accessToken = restFB.getToken(code);
+		} catch (IOException e) {
+			return "redirect:dang-nhap?incorrectAccount";
+		}
+		com.restfb.types.User user = restFB.getUserInfo(accessToken);
+		MyUser userDetail = restFB.buildUser(user);
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
+				userDetail.getAuthorities());
+		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return "redirect:trang-chu";
 	}
 

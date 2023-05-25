@@ -10,8 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "category_blog")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CategoryBlogEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,37 +34,5 @@ public class CategoryBlogEntity {
 
 	@OneToMany(mappedBy = "category")
 	private List<BlogEntity> listBlog;
-
-	public int getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
-	}
-
-	public String getCategoryName() {
-		return categoryName;
-	}
-
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-
-	public String getCategoryCode() {
-		return categoryCode;
-	}
-
-	public void setCategoryCode(String categoryCode) {
-		this.categoryCode = categoryCode;
-	}
-
-	public List<BlogEntity> getListBlog() {
-		return listBlog;
-	}
-
-	public void setListBlog(List<BlogEntity> listBlog) {
-		this.listBlog = listBlog;
-	}
 
 }

@@ -17,9 +17,16 @@ import javax.persistence.TemporalType;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "contact")
 @EntityListeners(AuditingEntityListener.class) // de su dung createdBy..., duoc cau hinh trong jpaAuditingConfig
+@Getter
+@Setter
+@NoArgsConstructor
 public class ContactEntity {
 
 	@Id
@@ -44,63 +51,11 @@ public class ContactEntity {
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
 
-	public ContactEntity() {
-		super();
-	}
-
 	public ContactEntity(String email, String message, String name) {
 		super();
 		this.email = email;
 		this.message = message;
 		this.name = name;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Date getSendDate() {
-		return sendDate;
-	}
-
-	public void setSendDate(Date sendDate) {
-		this.sendDate = sendDate;
-	}
-
-	public UserEntity getUser() {
-		return user;
-	}
-
-	public void setUser(UserEntity user) {
-		this.user = user;
 	}
 
 }

@@ -1,13 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
-<c:if test="${param.success != null}">
+<c:if test="${param.registerSuccess != null}">
 	<c:set var="alert" value="success"/>
 	<c:set var="msg" value="<strong>Bạn đã đăng kí thành công.</strong> Vui lòng kiểm tra email để kích hoạt tài khoản."/>
 </c:if>
 <c:if test="${param.incorrectAccount != null}">
 	<c:set var="alert" value="danger"/>
 	<c:set var="msg" value="<strong>Đăng nhập thất bại.</strong> Tài khoản hoặc mật khẩu không đúng, vui lòng kiểm tra lại."/>
+</c:if>
+<c:if test="${param.resetPasswordSuccess != null}">
+	<c:set var="alert" value="success"/>
+	<c:set var="msg" value="<strong>Đặt lại mật khẩu thành công.</strong> Vui lòng kiểm tra email để nhận được mật khẩu mới."/>
+</c:if>
+<c:if test="${param.verifySuccess != null}">
+	<c:set var="alert" value="success"/>
+	<c:set var="msg" value="<strong>Xác minh tài khoản thành công.</strong> Tài khoản của bạn đã được xác minh, đăng nhập đã sử dụng hệ thống."/>
+</c:if>
+<c:if test="${param.verifyError != null}">
+	<c:set var="alert" value="danger"/>
+	<c:set var="msg" value="<strong>Xác minh tài khoản thất bại.</strong> Vui lòng kiểm tra lại email để xác minh tài khoản."/>
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -76,7 +88,8 @@
                              <div class="l-f-o">
                                  <div class="l-f-o__pad-box">
                                  	<!-- nếu vừa đăng kí thành công thì hiển thị ra thông báo này hoặc đăng nhập thất bại -->
-                                 	<c:if test="${param.incorrectAccount != null || param.success != null}">
+                                 	<c:if test="${msg != null}">
+<%--                                  	<c:if test="${param.incorrectAccount != null || param.success != null || param.resetPasswordSuccess != null}"> --%>
 						                <div class="alert alert-${alert} alert-dismissible fade show" role="alert">
 										  ${msg}
 										  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -84,6 +97,7 @@
 										  </button>
 										</div>
                                  	</c:if>
+                                 	
                                      <h1 class="gl-h1">Bạn là khách hàng mới?</h1>
 
                                      <span class="gl-text u-s-m-b-30">Bằng cách tạo tài khoản với cửa hàng của chúng tôi, bạn sẽ có thể chuyển qua quy trình thanh toán nhanh hơn, lưu trữ địa chỉ giao hàng, xem và theo dõi đơn hàng trong tài khoản của bạn.</span>
@@ -95,12 +109,12 @@
                                      <span class="gl-text u-s-m-b-30">Nếu bạn đã có tài khoản, vui lòng đăng nhập.</span>
                                      <form class="l-f-o__form" action="j_spring_security_check" method="post">
                                          <div class="gl-s-api">
-                                             <div class="u-s-m-b-15">
-
-                                                 <button class="gl-s-api__btn gl-s-api__btn--fb" type="button"><i class="fa fa-facebook"></i>
-
-                                                     <span>Đăng nhập với Facebook</span></button></div>
-                                             <div class="u-s-m-b-15">
+												<div class="u-s-m-b-15">
+													<a href="https://www.facebook.com/dialog/oauth?client_id=235246829135909&redirect_uri=http://localhost:8080/Organi/login-facebook"
+														class="gl-s-api__btn gl-s-api__btn--fb"> 
+														<i class="fa fa-facebook"></i> <span>Đăng nhập với Facebook</span></a>
+												</div>
+												<div class="u-s-m-b-15">
 
                                                  <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/Organi/login-google&response_type=code
  															&client_id=962062893818-gvp7bp2rgclufevrqdhhgsppivjouive.apps.googleusercontent.com&approval_prompt=force" class="gl-s-api__btn gl-s-api__btn--gplus"><i class="fa fa-google"></i>
@@ -123,7 +137,7 @@
                                                  <button class="btn btn--e-transparent-brand-b-2" type="submit">ĐĂNG NHẬP</button></div>
                                              <div class="u-s-m-b-30">
 
-                                                 <a class="gl-link" href='<c:url value="/lost-password" />'>Quên mật khẩu?</a></div>
+                                                 <a class="gl-link" href='<c:url value="/quen-mat-khau" />'>Quên mật khẩu?</a></div>
                                          </div>
                                          <div class="u-s-m-b-30">
 

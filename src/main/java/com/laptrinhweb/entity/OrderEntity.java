@@ -20,14 +20,35 @@ import javax.persistence.TemporalType;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "checkout")
 @EntityListeners(AuditingEntityListener.class) // de su dung createdBy..., duoc cau hinh trong jpaAuditingConfig
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@Column(name = "email")
+	private String email;
+
+	@Column(name = "full_name")
+	private String fullName;
+
+	@Column(name = "phone_number")
+	private String phoneNumber;
+
+	@Column(name = "address")
+	private String address;
 
 	@OneToMany(mappedBy = "orderEntity", fetch = FetchType.LAZY)
 	private List<OrderItemEntity> listOrderItem;
@@ -49,73 +70,5 @@ public class OrderEntity {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private UserEntity userOrder;
-
-	@ManyToOne
-	@JoinColumn(name = "address_id")
-	private AddressEntity address;
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public AddressEntity getAddress() {
-		return address;
-	}
-
-	public void setAddress(AddressEntity address) {
-		this.address = address;
-	}
-
-	public List<OrderItemEntity> getListOrderItem() {
-		return listOrderItem;
-	}
-
-	public void setListOrderItem(List<OrderItemEntity> listOrderItem) {
-		this.listOrderItem = listOrderItem;
-	}
-
-	public Date getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
-
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-
-	public double getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	public UserEntity getUserOrder() {
-		return userOrder;
-	}
-
-	public void setUserOrder(UserEntity userOrder) {
-		this.userOrder = userOrder;
-	}
 
 }

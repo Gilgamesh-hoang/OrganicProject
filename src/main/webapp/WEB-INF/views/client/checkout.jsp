@@ -129,14 +129,14 @@
     <!-- Footer Section End -->
 
 	<!-- disable các trường thông tin trừ note -->
-	<script>
+	<!-- <script>
 		window.addEventListener('DOMContentLoaded', (event) => {
 		  var inputFields = document.querySelectorAll('input:not([type="hidden"],[id="search"]), select');
 		  inputFields.forEach(function(inputField) {
 		    inputField.disabled = true;
 		  });
 		});
-	</script>
+	</script> -->
 	
     <!-- Js Plugins -->
     <script src='<c:url value="/js/jquery-3.3.1.min.js"/>'></script>

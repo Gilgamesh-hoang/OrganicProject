@@ -740,9 +740,9 @@ body {
   color: #ff4500;
   border: 2px solid #ff4500;
   background-color: transparent;
-  transition: border-color .5s ease-in; }
+  transition: border-color .2s ease-in; }
   .btn--e-transparent-brand-b-2:hover {
-    border-color: #fa4400; }
+    border-color: #a6ce38; }
 
 .btn--e-transparent-hover-brand-b-2 {
   color: #ff4500;

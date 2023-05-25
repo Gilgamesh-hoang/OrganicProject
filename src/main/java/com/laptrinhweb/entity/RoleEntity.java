@@ -10,8 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "role")
+@Getter
+@Setter
+@NoArgsConstructor
 public class RoleEntity {
 
 	@Id
@@ -23,29 +30,5 @@ public class RoleEntity {
 
 	@ManyToMany(mappedBy = "roles")
 	private List<UserEntity> user;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<UserEntity> getUser() {
-		return user;
-	}
-
-	public void setUser(List<UserEntity> user) {
-		this.user = user;
-	}
 
 }

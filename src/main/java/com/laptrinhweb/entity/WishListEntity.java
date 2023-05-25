@@ -11,8 +11,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "wishlist")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class WishListEntity {
 
 	@Id
@@ -25,29 +34,5 @@ public class WishListEntity {
 
 	@OneToMany(mappedBy = "wishList")
 	private List<WishListProductEntity> products;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public UserEntity getUser() {
-		return user;
-	}
-
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
-
-	public List<WishListProductEntity> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<WishListProductEntity> products) {
-		this.products = products;
-	}
 
 }

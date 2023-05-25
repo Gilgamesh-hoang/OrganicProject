@@ -22,7 +22,7 @@
 
 
 	<context:component-scan
-		base-package="com.laptrinhweb.controller" />
+		base-package="com.laptrinhweb.controller, com.laptrinhweb.api" />
 
 	<mvc:annotation-driven />
 
