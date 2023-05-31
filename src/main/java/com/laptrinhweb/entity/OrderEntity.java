@@ -3,6 +3,7 @@ package com.laptrinhweb.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -50,7 +51,7 @@ public class OrderEntity {
 	@Column(name = "address")
 	private String address;
 
-	@OneToMany(mappedBy = "orderEntity", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "orderEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<OrderItemEntity> listOrderItem;
 
 	@Column(name = "order_date")

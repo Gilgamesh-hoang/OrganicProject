@@ -70,7 +70,7 @@ public class UserService implements IUserService {
 			addressRepository.save(addressEntity);
 		}
 
-		return userMapper.toDTO(result);
+		return userMapper.toDTO(result, UserDto.class);
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class UserService implements IUserService {
 		oldUser = userMapper.mapInfor(userInput, oldUser);
 		UserEntity result = userRepository.save(oldUser);
 		// sau khi cập nhật db xong thì cập nhật user trong SecurityContext
-		UserDto updatedUser = userMapper.toDTO(result);
+		UserDto updatedUser = userMapper.toDTO(result, UserDto.class);
 		SecurityUtils.updatePrincipal(updatedUser);
 		return updatedUser;
 	}
@@ -105,7 +105,7 @@ public class UserService implements IUserService {
 		user = userRepository.save(user);
 		// Trả về đối tượng UserDto để thông báo cho người dùng rằng thay đổi mật khẩu
 		// đã thành công
-		return userMapper.toDTO(user);
+		return userMapper.toDTO(user, UserDto.class);
 
 	}
 
@@ -120,7 +120,7 @@ public class UserService implements IUserService {
 	@Override
 	public UserDto getUserByEmailAndUserName(String email, String userName) {
 		UserEntity user = userRepository.findOneByUserNameAndEmail(userName, email);
-		return (user == null) ? null : userMapper.toDTO(user);
+		return (user == null) ? null : userMapper.toDTO(user, UserDto.class);
 	}
 
 	@Override
@@ -142,7 +142,7 @@ public class UserService implements IUserService {
 		if (user != null) {
 			user.setActive(SystemConstant.ACTIVE);
 			user = userRepository.save(user);
-			return userMapper.toDTO(user);
+			return userMapper.toDTO(user, UserDto.class);
 		}
 		return null;
 	}

@@ -117,7 +117,7 @@
 		    <!-- Post-Comment-Form -->
 		    <c:if test="${SecurityUtils.getPrincipal() != null}">
 			    <div class="blog-detail-post-comment u-s-m-b-25">
-			        <form action='<c:url value="/binh-luan-blog"/>' method="post">
+			        <form action='<c:url value="/binh-luan/blog"/>' method="post">
 			            <div class="u-s-m-b-30">
 			                <label for="your-comment">Bình luận</label>
 			                <textarea class="text-area" id="your-comment" name="comment" required="required"></textarea>

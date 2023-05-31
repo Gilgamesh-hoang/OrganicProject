@@ -3,9 +3,11 @@ package com.laptrinhweb.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,7 +57,7 @@ public class BlogEntity {
 	@JoinColumn(name = "category_id")
 	private CategoryBlogEntity category;
 
-	@OneToMany(mappedBy = "blog")
+	@OneToMany(mappedBy = "blog", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<CommentBlogEntity> listComment;
 
 	@Column(name = "created_by")

@@ -1,11 +1,12 @@
 package com.laptrinhweb.service.impl;
 
-import java.util.Iterator;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.laptrinhweb.constant.SystemConstant;
 import com.laptrinhweb.dto.CartDto;
 import com.laptrinhweb.dto.MyUser;
 import com.laptrinhweb.entity.CartEntity;
@@ -37,8 +38,8 @@ public class CartService implements ICartService {
 	@Override
 	public boolean addProductToCart(int productId, int quantity) {
 		ProductEntity productEntity = productRepository.findOne(productId);
-		// nếu sản phẩm hết hàng
-		if (productEntity.getAvailable() == 0) {
+		// nếu sản phẩm hết hàng hoặc sản phẩm ngừng kinh doanh
+		if (productEntity.getAvailable() == 0 || productEntity.getStatus() == SystemConstant.OUT_OF_BUSINESS) {
 			return false;
 		}
 		// trường hợp số available bé hơn quantity người dùng muốn mua
@@ -92,7 +93,7 @@ public class CartService implements ICartService {
 		if (cartEntity == null)
 			return new CartDto();
 		else {
-			CartDto cartDto = cartMapper.toDTO(cartEntity);
+			CartDto cartDto = cartMapper.toDTO(cartEntity, CartDto.class);
 			return cartDto;
 		}
 	}
@@ -105,16 +106,25 @@ public class CartService implements ICartService {
 		if (cartEntity == null)
 			return new CartDto();
 		else {
-			Iterator<CartItemEntity> itemEntity = cartEntity.getItems().iterator();
-			while (itemEntity.hasNext()) {
-				CartItemEntity item = itemEntity.next();
-				if (item.getProduct().getAvailable() == 0) {
-					cartEntity.getItems().remove(item);
-					cartEntity.setTotalQuantity(cartEntity.getTotalQuantity() - item.getQuantity());
-					cartEntity.setTotalPrice(cartEntity.getTotalPrice() - item.getTotalPrice());
+//			Iterator<CartItemEntity> itemEntity = cartEntity.getItems().iterator();
+//			while (itemEntity.hasNext()) {
+//				CartItemEntity item = itemEntity.next();
+//				if (item.getProduct().getAvailable() == 0) {
+//					cartEntity.getItems().remove(item);
+//					cartEntity.setTotalQuantity(cartEntity.getTotalQuantity() - item.getQuantity());
+//					cartEntity.setTotalPrice(cartEntity.getTotalPrice() - item.getTotalPrice());
+//				}
+//			}
+			Stream<CartItemEntity> stream = cartEntity.getItems().stream();
+			stream.forEach(itemEntity -> {
+				if (itemEntity.getProduct().getAvailable() == 0) {
+					cartEntity.getItems().remove(itemEntity);
+					cartEntity.setTotalQuantity(cartEntity.getTotalQuantity() - itemEntity.getQuantity());
+					cartEntity.setTotalPrice(cartEntity.getTotalPrice() - itemEntity.getTotalPrice());
 				}
-			}
-			CartDto cartDto = cartMapper.toDTO(cartEntity);
+			});
+
+			CartDto cartDto = cartMapper.toDTO(cartEntity, CartDto.class);
 			return cartDto;
 		}
 	}

@@ -22,7 +22,7 @@ public class CategoryBlogService implements ICategoryBlogService {
 	@Override
 	public List<CategoryBlogDto> getAllCategoryBlog() {
 		List<CategoryBlogEntity> entities = categoryBlogRepository.getBlogCountByCategory();
-		return categoryBlogMapper.toDTO(entities);
+		return categoryBlogMapper.toDTO(entities, CategoryBlogDto.class);
 	}
 
 }

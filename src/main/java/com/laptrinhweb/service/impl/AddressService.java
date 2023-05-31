@@ -31,13 +31,13 @@ public class AddressService implements IAddressService {
 		MyUser myUser = SecurityUtils.getPrincipal();
 		UserEntity userEntity = userRepository.findOne(myUser.getId());
 		List<AddressEntity> listEntities = addressRepository.findAllByUser(userEntity);
-		return addressMapper.toDTO(listEntities);
+		return addressMapper.toDTO(listEntities, AddressDto.class);
 	}
 
 	@Override
 	public AddressDto getById(int id) {
 		AddressEntity addressEntity = addressRepository.findOne(id);
-		return addressMapper.toDTO(addressEntity);
+		return addressMapper.toDTO(addressEntity, AddressDto.class);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class AddressService implements IAddressService {
 			addressMapper.updateData(addressEntity, address);
 		}
 		addressEntity = addressRepository.save(addressEntity);
-		return addressMapper.toDTO(addressEntity);
+		return addressMapper.toDTO(addressEntity, AddressDto.class);
 
 	}
 
@@ -81,7 +81,7 @@ public class AddressService implements IAddressService {
 			newAddress = addressRepository.save(newAddress);
 			oldAddress = addressRepository.save(oldAddress);
 			// cập nhật lại địa chỉ trong MyUser
-			SecurityUtils.updateAddress(addressMapper.toDTO(newAddress));
+			SecurityUtils.updateAddress(addressMapper.toDTO(newAddress, AddressDto.class));
 		}
 	}
 

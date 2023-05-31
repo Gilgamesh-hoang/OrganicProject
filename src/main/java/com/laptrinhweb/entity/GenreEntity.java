@@ -3,9 +3,11 @@ package com.laptrinhweb.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -61,7 +63,7 @@ public class GenreEntity {
 	@CreatedDate
 	private Date createdDate;
 
-	@OneToMany(mappedBy = "genre")
+	@OneToMany(mappedBy = "genre", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ProductEntity> listProduct;
 
 }

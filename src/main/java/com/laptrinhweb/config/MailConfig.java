@@ -11,7 +11,6 @@ import com.laptrinhweb.constant.SystemConstant;
 
 @Configuration
 public class MailConfig {
-
 	@Bean
 	public JavaMailSender getJavaMailSender() {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -26,5 +25,4 @@ public class MailConfig {
 		mailSender.setJavaMailProperties(props);
 		return mailSender;
 	}
-
 }

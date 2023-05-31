@@ -18,7 +18,13 @@ public interface IProductService {
 
 	List<ProductDto> relatedProductByGenreId(int productId, int genreId);
 
+	boolean save(ProductDto productDto);
+
+	boolean delete(int[] ids);
+
 	ProductDto getProductById(int id, Pageable pageable);
+
+	ProductDto getProductById(int id);
 
 	ProductDto checkOutProduct(int quantity, ProductEntity entity);
 
@@ -27,4 +33,5 @@ public interface IProductService {
 	int countByKeyword(String keyword);
 
 	int countByParam(String param, int id);
+
 }

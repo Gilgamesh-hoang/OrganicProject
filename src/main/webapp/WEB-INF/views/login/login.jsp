@@ -89,7 +89,6 @@
                                  <div class="l-f-o__pad-box">
                                  	<!-- nếu vừa đăng kí thành công thì hiển thị ra thông báo này hoặc đăng nhập thất bại -->
                                  	<c:if test="${msg != null}">
-<%--                                  	<c:if test="${param.incorrectAccount != null || param.success != null || param.resetPasswordSuccess != null}"> --%>
 						                <div class="alert alert-${alert} alert-dismissible fade show" role="alert">
 										  ${msg}
 										  <button type="button" class="close" data-dismiss="alert" aria-label="Close">

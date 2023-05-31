@@ -59,11 +59,6 @@ public class WishListService implements IWishListService {
 		return false;
 	}
 
-//	private WishListEntity wishList() {
-//		MyUser myUser = SecurityUtils.getPrincipal();
-//		WishListEntity wishList = wishListRepository.findOneByUserId(myUser.getId());
-//		return wishList;
-//	}
 	@Override
 	public WishListDto getWishList() {
 		MyUser myUser = SecurityUtils.getPrincipal();
@@ -71,7 +66,7 @@ public class WishListService implements IWishListService {
 		if (wishList == null) {
 			return new WishListDto();
 		} else {
-			return wishListMapper.toDTO(wishList);
+			return wishListMapper.toDTO(wishList, WishListDto.class);
 		}
 	}
 
@@ -87,9 +82,7 @@ public class WishListService implements IWishListService {
 
 	@Override
 	public int numberProductLike() {
-		if (getWishList().getProducts() == null)
-			return 0;
-		return getWishList().getProducts().size();
+		return (getWishList().getProducts() == null) ? 0 : getWishList().getProducts().size();
 	}
 
 }

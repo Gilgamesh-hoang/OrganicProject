@@ -16,10 +16,10 @@ public class ManufacturerMapper extends GeneralMapper<ManufacturerDto, Manufactu
 	private ModelMapper modelMapper;
 
 	@Override
-	public List<ManufacturerDto> toDTO(List<ManufacturerEntity> entities) {
+	public List<ManufacturerDto> toDTO(List<ManufacturerEntity> entities, Class<ManufacturerDto> dtoClass) {
 		List<ManufacturerDto> result = new ArrayList<>();
 		for (ManufacturerEntity entity : entities) {
-			ManufacturerDto dto = modelMapper.map(entity, ManufacturerDto.class);
+			ManufacturerDto dto = modelMapper.map(entity, dtoClass);
 			dto.setNumberProduct(entity.getListProduct().size());
 			result.add(dto);
 		}

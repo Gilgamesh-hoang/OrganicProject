@@ -16,15 +16,26 @@ public class CategoryBlogMapper extends GeneralMapper<CategoryBlogDto, CategoryB
 	private ModelMapper modelMapper;
 
 	@Override
-	public List<CategoryBlogDto> toDTO(List<CategoryBlogEntity> entities) {
+	public List<CategoryBlogDto> toDTO(List<CategoryBlogEntity> entities, Class<CategoryBlogDto> dtoClass) {
 		List<CategoryBlogDto> result = new ArrayList<>();
 		for (CategoryBlogEntity entity : entities) {
-			CategoryBlogDto dto = modelMapper.map(entity, CategoryBlogDto.class);
+			CategoryBlogDto dto = modelMapper.map(entity, dtoClass);
 			dto.setNumberBlog(entity.getListBlog().size());
 			result.add(dto);
 		}
 		return result;
 	}
+
+//	@Override
+//	public List<CategoryBlogDto> toDTO(List<CategoryBlogEntity> entities) {
+//		List<CategoryBlogDto> result = new ArrayList<>();
+//		for (CategoryBlogEntity entity : entities) {
+//			CategoryBlogDto dto = modelMapper.map(entity, CategoryBlogDto.class);
+//			dto.setNumberBlog(entity.getListBlog().size());
+//			result.add(dto);
+//		}
+//		return result;
+//	}
 }
 //@Component
 //public class CategoryBlogMapper{

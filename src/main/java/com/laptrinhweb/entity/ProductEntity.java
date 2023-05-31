@@ -3,9 +3,11 @@ package com.laptrinhweb.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -78,16 +80,16 @@ public class ProductEntity {
 	@JoinColumn(name = "manufacturer_id")
 	private ManufacturerEntity manufacturer;
 
-	@OneToMany(mappedBy = "product")
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<CartItemEntity> listCartItem;
 
-	@OneToMany(mappedBy = "product")
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<WishListProductEntity> wishListProduct;
 
-	@OneToMany(mappedBy = "product")
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<OrderItemEntity> orderItem;
 
-	@OneToMany(mappedBy = "product")
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<CommentProductEntity> listComment;
 
 	@Column(name = "created_by")

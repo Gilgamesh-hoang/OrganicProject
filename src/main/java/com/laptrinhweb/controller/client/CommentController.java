@@ -15,14 +15,14 @@ public class CommentController {
 	@Autowired
 	private ICommentService commentService;
 
-	@RequestMapping(value = "/binh-luan-blog", method = RequestMethod.POST)
+	@RequestMapping(value = "/binh-luan/blog", method = RequestMethod.POST)
 	public String commentBlog(@RequestParam("blogId") Integer blogId, @RequestParam("comment") String comment,
 			HttpServletRequest request) {
 		commentService.commentBlog(blogId, comment);
 		return "redirect:" + request.getHeader("Referer");
 	}
 
-	@RequestMapping(value = "/binh-luan-san-pham", method = RequestMethod.POST)
+	@RequestMapping(value = "/binh-luan/san-pham", method = RequestMethod.POST)
 	public String commentProduct(@RequestParam("productId") Integer productId, @RequestParam("rate") Short rate,
 			@RequestParam("comment") String comment, HttpServletRequest request) {
 		commentService.commentProduct(productId, rate, comment);

@@ -22,7 +22,7 @@ public class GenreService implements IGenreService {
 	@Override
 	public List<GenreDto> getAllGenre() {
 		List<GenreEntity> entities = genreRepository.getProductCountByGenre();
-		return genreMapper.toDTO(entities);
+		return genreMapper.toDTO(entities, GenreDto.class);
 	}
 
 }

@@ -59,4 +59,10 @@ public class CommentService implements ICommentService {
 		commentProductRepository.save(commentProduct);
 	}
 
+	@Override
+	public void removeCommentProduct(int commentId) {
+		commentProductRepository.delete(commentId);
+
+	}
+
 }

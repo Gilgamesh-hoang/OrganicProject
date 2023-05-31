@@ -6,5 +6,5 @@ import com.laptrinhweb.dto.ManufacturerDto;
 
 public interface IManufacturerService {
 
-	List<ManufacturerDto> getAllManufacturerWithQuantityProduct();
+	List<ManufacturerDto> getAllManufacturer();
 }

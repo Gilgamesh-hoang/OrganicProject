@@ -12,6 +12,10 @@ public interface IBlogService {
 
 	List<BlogDto> getByCategoryId(int categoryId, Pageable pageable);
 
+	boolean save(BlogDto blogDto);
+
+	boolean delete(int[] ids);
+
 	int countAllBlog();
 
 	int countBlogByCategoryId(int categoryId);
@@ -27,4 +31,5 @@ public interface IBlogService {
 	List<BlogDto> blogRandom();
 
 	List<BlogDto> searchBlog(String keyword, Pageable pageable);
+
 }

@@ -99,7 +99,7 @@ public class ProductController extends BaseController {
 	}
 
 	private void addCommonObjectsToModelAndView(String viewName) {
-		mvShare.addObject("manufacturersFilter", manufacturerService.getAllManufacturerWithQuantityProduct());
+		mvShare.addObject("manufacturersFilter", manufacturerService.getAllManufacturer());
 		mvShare.addObject("genresFilter", genreService.getAllGenre());
 		mvShare.setViewName(viewName);
 	}

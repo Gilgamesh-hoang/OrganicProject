@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import com.laptrinhweb.dto.AddressDto;
 import com.laptrinhweb.dto.MyUser;
 import com.laptrinhweb.dto.UserDto;
 import com.laptrinhweb.entity.AddressEntity;
@@ -65,7 +66,7 @@ public class UserMapper extends GeneralMapper<UserDto, UserEntity> {
 		userDetails.setPhoneNumber(userEntity.getPhoneNumber());
 		for (AddressEntity address : userEntity.getListAddress()) {
 			if (address.isDefaultAddress()) {
-				userDetails.setAddress(addressMapper.toDTO(address));
+				userDetails.setAddress(addressMapper.toDTO(address, AddressDto.class));
 				break;
 			}
 		}

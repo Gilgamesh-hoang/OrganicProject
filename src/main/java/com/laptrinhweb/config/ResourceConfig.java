@@ -16,8 +16,10 @@ public class ResourceConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/css/**").addResourceLocations("/resources/client/css/");
 		registry.addResourceHandler("/js/**").addResourceLocations("/resources/client/js/");
 		registry.addResourceHandler("/sass/**").addResourceLocations("/resources/client/sass/");
-		registry.addResourceHandler("/paging/**").addResourceLocations("/resources/client/paging/");
+		registry.addResourceHandler("/paging/**").addResourceLocations("/resources/paging/");
 		registry.addResourceHandler("/assets/**").addResourceLocations("/resources/admin/assets/");
+		registry.addResourceHandler("/sweetalert/**").addResourceLocations("/resources/sweetalert/");
+		registry.addResourceHandler("/ckeditor/**").addResourceLocations("/resources/ckeditor/");
 	}
 
 	@Override

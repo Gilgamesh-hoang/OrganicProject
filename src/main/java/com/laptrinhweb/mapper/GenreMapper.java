@@ -16,10 +16,10 @@ public class GenreMapper extends GeneralMapper<GenreDto, GenreEntity> {
 	private ModelMapper modelMapper;
 
 	@Override
-	public List<GenreDto> toDTO(List<GenreEntity> entities) {
+	public List<GenreDto> toDTO(List<GenreEntity> entities, Class<GenreDto> dtoClass) {
 		List<GenreDto> result = new ArrayList<>();
 		for (GenreEntity entity : entities) {
-			GenreDto dto = modelMapper.map(entity, GenreDto.class);
+			GenreDto dto = modelMapper.map(entity, dtoClass);
 			dto.setNumberProduct(entity.getListProduct().size());
 			result.add(dto);
 		}

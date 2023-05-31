@@ -204,10 +204,13 @@
 	                                                        
 	                                                        </div>
 	                                                        <p class="review-o__text">${comment.content}</p>
+	                                                        <security:authorize access="hasRole('ROLE_ADMIN')">
+																<a class="p-comment__reply" href='<c:url value="/admin/binh-luan/san-pham/xoa?commentId=${ comment.id}"/>'>Xóa</a>
+															</security:authorize>
 	                                                    </div>
                                                 	</c:forEach>
                                                 </div>
-											<!-- paginatation -->
+											<!-- paginatation comment-->
 											<nav aria-label="Page navigation example">
 												<ul class="pagination justify-content-center mt-20">
 													<c:forEach var="index" begin="1" end="${totalPage}">
@@ -221,7 +224,7 @@
 										</div>
                                         <c:if test="${SecurityUtils.getPrincipal() != null}">
 	                                        <div class="u-s-m-b-30">
-	                                            <form action='<c:url value="/binh-luan-san-pham"/>' class="pd-tab__rev-f2" method="post">
+	                                            <form action='<c:url value="/binh-luan/san-pham"/>' class="pd-tab__rev-f2" method="post">
 	                                                <div class="u-s-m-b-30">
 	                                                    <div class="rev-f2__table-wrap gl-scroll">
 	                                                        <table class="rev-f2__table">

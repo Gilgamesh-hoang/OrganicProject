@@ -20,9 +20,9 @@ public class ManufacturerService implements IManufacturerService {
 	private ManufacturerMapper manufacturerMapper;
 
 	@Override
-	public List<ManufacturerDto> getAllManufacturerWithQuantityProduct() {
+	public List<ManufacturerDto> getAllManufacturer() {
 		List<ManufacturerEntity> entities = manufacturerRepository.getProductCountByManufacturer();
-		return manufacturerMapper.toDTO(entities);
+		return manufacturerMapper.toDTO(entities, ManufacturerDto.class);
 	}
 
 }

@@ -24,12 +24,12 @@
 		</a> <b class="arrow"></b>
 
 			<ul class="submenu">
-				<li class="active"><a href="tables.html"> <i
-						class="menu-icon fa fa-caret-right"></i> Simple &amp; Dynamic
+				<li class="active"><a href='<c:url value="/admin/trang-chu"/>'> <i
+						class="menu-icon fa fa-caret-right"></i> Quản lý sản phẩm
 				</a> <b class="arrow"></b></li>
 
-				<li class=""><a href="jqgrid.html"> <i
-						class="menu-icon fa fa-caret-right"></i> jqGrid plugin
+				<li class=""><a href='<c:url value="/admin/blog"/>'> <i
+						class="menu-icon fa fa-caret-right"></i> Quản lý bài viết
 				</a> <b class="arrow"></b></li>
 			</ul></li>
 

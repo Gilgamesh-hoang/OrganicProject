@@ -3,6 +3,7 @@ package com.laptrinhweb.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -66,19 +67,19 @@ public class UserEntity {
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<RoleEntity> roles;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ContactEntity> contact;
 
-	@OneToMany(mappedBy = "userOrder")
+	@OneToMany(mappedBy = "userOrder", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<OrderEntity> listOrder;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<AddressEntity> listAddress;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<CommentBlogEntity> listCommentBlog;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<CommentProductEntity> listCommentProduct;
 
 	@OneToOne(mappedBy = "user")

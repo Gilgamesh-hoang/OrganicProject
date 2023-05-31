@@ -17,6 +17,7 @@ public class BlogDto extends AbstractDto<BlogDto> {
 	private String image;
 	private String content;
 	private String shortDescription;
+	private CategoryBlogDto category;
 	private List<CommentBlogDto> listComment;
 
 }

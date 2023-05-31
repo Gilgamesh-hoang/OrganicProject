@@ -15,7 +15,6 @@ import com.laptrinhweb.entity.CartItemEntity;
 import com.laptrinhweb.entity.OrderEntity;
 import com.laptrinhweb.entity.OrderItemEntity;
 import com.laptrinhweb.entity.UserEntity;
-import com.laptrinhweb.mapper.AddressMapper;
 import com.laptrinhweb.mapper.CheckOutMapper;
 import com.laptrinhweb.repository.ICartRepository;
 import com.laptrinhweb.repository.ICheckoutItemRepository;
@@ -42,13 +41,11 @@ public class CheckoutService implements ICheckOutService {
 	@Autowired
 	private CheckOutMapper checkOutMapper;
 	@Autowired
-	private AddressMapper addressMapper;
-	@Autowired
 	private IUserRepository userRepository;
 
 	@Override
 	public boolean order(String note) {
-		OrderEntity orderEntity = new OrderEntity();
+
 		MyUser user = SecurityUtils.getPrincipal();
 		CartEntity cartEntity = cartRepository.findByUserId(user.getId());
 
@@ -68,6 +65,7 @@ public class CheckoutService implements ICheckOutService {
 		}
 
 		// lưu đơn hàng
+		OrderEntity orderEntity = new OrderEntity();
 		orderEntity.setTotalPrice(cartEntity.getTotalPrice());
 		orderEntity.setNote(note);
 		orderEntity.setUserOrder(cartEntity.getUser());
@@ -96,13 +94,13 @@ public class CheckoutService implements ICheckOutService {
 		MyUser user = SecurityUtils.getPrincipal();
 		UserEntity userEntity = userRepository.findOne(user.getId());
 		List<OrderEntity> orderEntity = checkoutRepository.findByUserOrder(userEntity);
-		return checkOutMapper.toDTO(orderEntity);
+		return checkOutMapper.toDTO(orderEntity, OrderDto.class);
 	}
 
 	@Override
 	public OrderDto getOrderById(int id) {
 		OrderEntity orderEntity = checkoutRepository.findOne(id);
-		return checkOutMapper.toDTO(orderEntity);
+		return checkOutMapper.toDTO(orderEntity, OrderDto.class);
 	}
 
 }

@@ -2,7 +2,9 @@ package com.laptrinhweb.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +34,7 @@ public class WishListEntity {
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
 
-	@OneToMany(mappedBy = "wishList")
+	@OneToMany(mappedBy = "wishList", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<WishListProductEntity> products;
 
 }

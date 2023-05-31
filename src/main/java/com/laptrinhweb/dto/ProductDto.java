@@ -22,7 +22,7 @@ public class ProductDto extends AbstractDto<ProductDto> {
 	private double discount;
 	private double weight;
 	private String description;
-	private short status;
+	private Short status;
 	private GenreDto genre;
 	private short rate;
 	private ManufacturerEntity manufacturer;

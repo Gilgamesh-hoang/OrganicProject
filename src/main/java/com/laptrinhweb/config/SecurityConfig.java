@@ -13,12 +13,15 @@ import org.springframework.security.web.authentication.rememberme.InMemoryTokenR
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.laptrinhweb.service.impl.UserDetailsServiceImpl;
+import com.laptrinhweb.util.CustomSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
+	@Autowired
+	private CustomSuccessHandler customSuccessHandler;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -32,17 +35,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				"/tim-kiem-blog", "/lien-he", "/san-pham/**", "/tim-kiem-san-pham", "/danh-muc", "/thuong-hieu")
 				.permitAll();
 
-		// Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
-		// Nếu chưa login, nó sẽ redirect tới trang /login.sau Mình dung hasAnyRole để
-		// cho phép ai được quyền vào
-		// 2 ROLE_USER và ROLEADMIN thì ta lấy từ database
-//		http.authorizeRequests().antMatchers("/userInfo").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-
 		// Trang yêu cầu phải login
 		http.authorizeRequests()
 				.antMatchers("/gio-hang/**", "/danh-sach-yeu-thich/**", "/thay-doi-mat-khau", "/chinh-sua-thong-tin",
 						"/thong-tin-cua-toi", "/thong-tin-tai-khoan", "/thanh-toan", "/don-hang/**", "/dia-chi/**",
-						"/binh-luan-blog", "/binh-luan-san-pham")
+						"/binh-luan/**")
 				.authenticated();
 
 		// Trang chỉ dành cho ADMIN
@@ -58,13 +55,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// Submit URL của trang login
 				.loginProcessingUrl("/j_spring_security_check") // noi nhan url, chua action spring security
 																// viet san dung de login. Khi nhan submit
-				.loginPage("/dang-nhap").defaultSuccessUrl("/trang-chu")// đây Khi đăng nhập thành công thì vào
-																		// trang này
+				.loginPage("/dang-nhap").successHandler(customSuccessHandler)// đây Khi đăng nhập thành công thì vào
+				// trang này
 				.failureUrl("/dang-nhap?incorrectAccount")// Khi đăng nhập sai username và password thì nhập lại
 				.usernameParameter("j_username")// tham số này nhận từ form login
 				.passwordParameter("j_password")// tham số này nhận từ form login
 				// Cấu hình cho Logout Page. Khi logout mình trả về trang
 				.and().logout().logoutUrl("/dang-xuat").logoutSuccessUrl("/trang-chu").deleteCookies("JSESSIONID");
+//		http.authorizeRequests().and().formLogin()//
+//		// Submit URL của trang login
+//		.loginProcessingUrl("/j_spring_security_check") // noi nhan url, chua action spring security
+//		// viet san dung de login. Khi nhan submit
+//		.loginPage("/dang-nhap").defaultSuccessUrl("/trang-chu")// đây Khi đăng nhập thành công thì vào
+//		// trang này
+//		.failureUrl("/dang-nhap?incorrectAccount")// Khi đăng nhập sai username và password thì nhập lại
+//		.usernameParameter("j_username")// tham số này nhận từ form login
+//		.passwordParameter("j_password")// tham số này nhận từ form login
+//		// Cấu hình cho Logout Page. Khi logout mình trả về trang
+//		.and().logout().logoutUrl("/dang-xuat").logoutSuccessUrl("/trang-chu").deleteCookies("JSESSIONID");
 
 		// Cấu hình Remember Me. Nếu người dùng tick vào đó ta sẽ dùng cookie lưu lại
 		// trong 24h

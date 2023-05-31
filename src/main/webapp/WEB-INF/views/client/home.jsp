@@ -6,9 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-   
     <title>Trang chủ</title>
-
+    
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
     <!-- Icon -->
@@ -22,7 +21,6 @@
     <link rel="stylesheet" href='<c:url value="/css/owl.carousel.min.css"/>' >
     <link rel="stylesheet" href='<c:url value="/css/slicknav.min.css"/>' >
     <link rel="stylesheet" href='<c:url value="/css/style.css"/>' >
-     <script src='<c:url value="/js/jquery-3.3.1.min.js"/>'></script>
 </head>
 
 <body>
@@ -219,7 +217,7 @@
 	
 	</script> -->
     <!-- Js Plugins -->
-   
+    <script src='<c:url value="/js/jquery-3.3.1.min.js"/>'></script>
     <script src='<c:url value="/js/bootstrap.min.js"/>'></script>
     <script src='<c:url value="/js/jquery.nice-select.min.js"/>'></script>
     <script src='<c:url value="/js/jquery-ui.min.js"/>'></script>
@@ -227,7 +225,5 @@
     <script src='<c:url value="/js/mixitup.min.js"/>'></script>
     <script src='<c:url value="/js/owl.carousel.min.js"/>'></script>
     <script src='<c:url value="/js/main.js"/>'></script>
-	
-
 </body>
 </html>
