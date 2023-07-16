@@ -35,7 +35,7 @@ import lombok.Setter;
 public class GenreEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@Column(name = "genre_name")
@@ -63,7 +63,7 @@ public class GenreEntity {
 	@CreatedDate
 	private Date createdDate;
 
-	@OneToMany(mappedBy = "genre", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "genre", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
 	private List<ProductEntity> listProduct;
 
 }

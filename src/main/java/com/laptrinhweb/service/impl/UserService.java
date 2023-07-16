@@ -1,7 +1,5 @@
 package com.laptrinhweb.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +11,8 @@ import com.laptrinhweb.constant.SystemConstant;
 import com.laptrinhweb.dto.MyUser;
 import com.laptrinhweb.dto.UserDto;
 import com.laptrinhweb.entity.AddressEntity;
-import com.laptrinhweb.entity.RoleEntity;
 import com.laptrinhweb.entity.UserEntity;
 import com.laptrinhweb.mapper.UserMapper;
-import com.laptrinhweb.repository.IAddressRepository;
 import com.laptrinhweb.repository.IRoleRepository;
 import com.laptrinhweb.repository.IUserRepository;
 import com.laptrinhweb.service.IUserService;
@@ -29,8 +25,6 @@ public class UserService implements IUserService {
 	private IUserRepository userRepository;
 	@Autowired
 	private IRoleRepository roleRepository;
-	@Autowired
-	private IAddressRepository addressRepository;
 	@Autowired
 	private PasswordEncoder encoder;
 	@Autowired
@@ -52,10 +46,7 @@ public class UserService implements IUserService {
 
 		String passwordEncode = encoder.encode(userDto.getPassword());
 		UserEntity result = userMapper.toEntity(userDto);
-
-		List<RoleEntity> roles = new ArrayList<>();
-		roles.add(roleRepository.findOneByName(SystemConstant.USER));
-		result.setRoles(roles);
+		result.addRole(roleRepository.findOneByName(SystemConstant.USER));
 		if (loginWithSocial) {
 			result.setActive(SystemConstant.ACTIVE);
 		} else {
@@ -63,13 +54,13 @@ public class UserService implements IUserService {
 			result.setVerifyCode(textRandom());
 		}
 		result.setPassword(passwordEncode);
-		result = userRepository.save(result);
+
 		if (!loginWithSocial) {
 			AddressEntity addressEntity = new AddressEntity(userDto.getEmail(), userDto.getFullName(),
-					userDto.getPhoneNumber(), userDto.getAddress(), true, result);
-			addressRepository.save(addressEntity);
+					userDto.getPhoneNumber(), userDto.getAddress(), SystemConstant.IS_DEFAULT);
+			result.addAddress(addressEntity);
 		}
-
+		result = userRepository.save(result);
 		return userMapper.toDTO(result, UserDto.class);
 	}
 
@@ -146,4 +137,13 @@ public class UserService implements IUserService {
 		}
 		return null;
 	}
+//	public UserDto verifyUser(int id, String verifyCode) {
+//		userRepository.verifyUser(id, verifyCode);
+//		UserEntity user = userRepository.findOne(id);
+//		if (user != null) {
+//			return userMapper.toDTO(user, UserDto.class);
+//		}
+//		return null;
+//	}
+
 }

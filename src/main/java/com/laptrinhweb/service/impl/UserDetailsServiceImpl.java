@@ -20,7 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		// đầu tiên mình query xuống database xem có user đó không
 		UserEntity userEntity = userRepository.findOneByUserNameAndActive(userName, SystemConstant.ACTIVE);
 		if (userEntity == null) {
 			System.out.println("User not found! " + userName);

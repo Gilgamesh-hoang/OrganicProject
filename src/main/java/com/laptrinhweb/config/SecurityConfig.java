@@ -50,11 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Ngoại lệ AccessDeniedException sẽ ném ra.
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/accessDenied");
 
-		// Cấu hình cho Login Form.
+		// config for Login Form.
 		http.authorizeRequests().and().formLogin()//
 				// Submit URL của trang login
 				.loginProcessingUrl("/j_spring_security_check") // noi nhan url, chua action spring security
-																// viet san dung de login. Khi nhan submit
+				// viet san dung de login. Khi nhan submit
 				.loginPage("/dang-nhap").successHandler(customSuccessHandler)// đây Khi đăng nhập thành công thì vào
 				// trang này
 				.failureUrl("/dang-nhap?incorrectAccount")// Khi đăng nhập sai username và password thì nhập lại

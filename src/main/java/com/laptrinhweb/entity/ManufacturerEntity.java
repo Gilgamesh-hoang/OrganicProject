@@ -26,7 +26,7 @@ import lombok.Setter;
 public class ManufacturerEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@Column(name = "manufacturer_name")
@@ -38,7 +38,7 @@ public class ManufacturerEntity {
 	@Column(name = "manufacturer_description", columnDefinition = "TEXT")
 	private String description;
 
-	@OneToMany(mappedBy = "manufacturer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "manufacturer", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
 	private List<ProductEntity> listProduct;
 
 }

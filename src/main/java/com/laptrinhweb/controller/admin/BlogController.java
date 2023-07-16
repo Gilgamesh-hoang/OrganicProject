@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.laptrinhweb.dto.AddressDto;
 import com.laptrinhweb.dto.BlogDto;
 import com.laptrinhweb.service.IBlogService;
 import com.laptrinhweb.service.ICategoryBlogService;
@@ -63,6 +64,9 @@ public class BlogController {
 		view.addObject("categories", categoryBlogService.getAllCategoryBlog());
 		view.addObject("blog", blogDto);
 		view.setViewName("/admin/edit-blog");
+		AddressDto addressDto = new AddressDto();
+
 		return view;
+
 	}
 }

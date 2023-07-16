@@ -1,0 +1,2 @@
+khi xóa người dùng thì sẽ xóa các đánh giá sp của người dùng đó, sẽ ảnh hưởng đến rate của sp.
+tính lại rate

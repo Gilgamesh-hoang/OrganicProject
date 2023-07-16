@@ -1,5 +1,6 @@
 package com.laptrinhweb.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +32,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "user")
-@EntityListeners(AuditingEntityListener.class) // de su dung createdBy..., duoc cau hinh trong jpaAuditingConfig
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @AllArgsConstructor
@@ -65,27 +66,27 @@ public class UserEntity {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private List<RoleEntity> roles;
+	private List<RoleEntity> roles = new ArrayList<>();
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	private List<ContactEntity> contact;
 
-	@OneToMany(mappedBy = "userOrder", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "userOrder", fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.PERSIST })
 	private List<OrderEntity> listOrder;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<AddressEntity> listAddress;
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
+	private List<AddressEntity> listAddress = new ArrayList<>();
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	private List<CommentBlogEntity> listCommentBlog;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	private List<CommentProductEntity> listCommentProduct;
 
-	@OneToOne(mappedBy = "user")
+	@OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
 	private CartEntity cart;
 
-	@OneToOne(mappedBy = "user")
+	@OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
 	private WishListEntity wishListtEntity;
 
 	@Column(name = "created_date")
@@ -97,5 +98,14 @@ public class UserEntity {
 	@Temporal(TemporalType.DATE)
 	@LastModifiedDate
 	private Date modifiedDate;
+
+	public void addRole(RoleEntity roleEntity) {
+		this.roles.add(roleEntity);
+	}
+
+	public void addAddress(AddressEntity addressEntity) {
+		addressEntity.setUser(this); // Set the UserEntity instance as the owner of the AddressEntity
+		listAddress.add(addressEntity);
+	}
 
 }

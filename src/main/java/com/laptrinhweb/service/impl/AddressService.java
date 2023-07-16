@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.laptrinhweb.constant.SystemConstant;
 import com.laptrinhweb.dto.AddressDto;
 import com.laptrinhweb.dto.MyUser;
 import com.laptrinhweb.entity.AddressEntity;
@@ -45,6 +46,9 @@ public class AddressService implements IAddressService {
 		AddressEntity addressEntity;
 		// thêm
 		if (address.getId() == 0) {
+			// run here, error because can't get the user that is logged in
+			// SecurityContextHolder.getContext().getAuthentication()
+			// result when running myUser = null
 			MyUser myUser = SecurityUtils.getPrincipal();
 			UserEntity userEntity = userRepository.findOne(myUser.getId());
 			addressEntity = addressMapper.toEntity(address, AddressEntity.class);
@@ -67,14 +71,15 @@ public class AddressService implements IAddressService {
 	public void makeDefaultAddress(int addressId) {
 		MyUser myUser = SecurityUtils.getPrincipal();
 		AddressEntity newAddress = addressRepository.findOne(addressId);
-		AddressEntity oldAddress = addressRepository.findOneByDefaultAddressAndUserId(true, myUser.getId());
+		AddressEntity oldAddress = addressRepository.findOneByDefaultAddressAndUserId(SystemConstant.IS_DEFAULT,
+				myUser.getId());
 		boolean addressChanged = false;
 		if (oldAddress == null) {
-			newAddress.setDefaultAddress(true);
+			newAddress.setDefaultAddress(SystemConstant.IS_DEFAULT);
 			addressChanged = true;
 		} else if (newAddress.getId() != oldAddress.getId()) {
-			newAddress.setDefaultAddress(true);
-			oldAddress.setDefaultAddress(false);
+			newAddress.setDefaultAddress(SystemConstant.IS_DEFAULT);
+			oldAddress.setDefaultAddress(SystemConstant.IS_NOT_DEFAULT);
 			addressChanged = true;
 		}
 		if (addressChanged && oldAddress != null) {

@@ -71,13 +71,8 @@ public class WishListService implements IWishListService {
 	}
 
 	@Override
-	public boolean deleteWishListItem(int wishlistItemId) {
-		WishListProductEntity itemProduct = listProductRepository.findOne(wishlistItemId);
-		if (itemProduct != null) {
-			listProductRepository.delete(itemProduct);
-			return true;
-		}
-		return false;
+	public void deleteWishListItem(int wishlistItemId) {
+		listProductRepository.deleteItemByItemId(wishlistItemId);
 	}
 
 	@Override

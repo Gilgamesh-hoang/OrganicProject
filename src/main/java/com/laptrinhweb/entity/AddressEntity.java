@@ -25,7 +25,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "address")
-@EntityListeners(AuditingEntityListener.class) // de su dung createdBy..., duoc cau hinh trong jpaAuditingConfig
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @AllArgsConstructor
@@ -33,7 +33,7 @@ import lombok.Setter;
 public class AddressEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@Column(name = "email")
@@ -65,15 +65,13 @@ public class AddressEntity {
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
 
-	public AddressEntity(String email, String fullName, String phoneNumber, String address, boolean defaultAddress,
-			UserEntity user) {
+	public AddressEntity(String email, String fullName, String phoneNumber, String address, boolean defaultAddress) {
 		super();
 		this.email = email;
 		this.fullName = fullName;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.defaultAddress = defaultAddress;
-		this.user = user;
 	}
 
 }

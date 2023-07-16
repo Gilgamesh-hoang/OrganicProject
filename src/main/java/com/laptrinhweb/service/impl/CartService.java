@@ -106,15 +106,6 @@ public class CartService implements ICartService {
 		if (cartEntity == null)
 			return new CartDto();
 		else {
-//			Iterator<CartItemEntity> itemEntity = cartEntity.getItems().iterator();
-//			while (itemEntity.hasNext()) {
-//				CartItemEntity item = itemEntity.next();
-//				if (item.getProduct().getAvailable() == 0) {
-//					cartEntity.getItems().remove(item);
-//					cartEntity.setTotalQuantity(cartEntity.getTotalQuantity() - item.getQuantity());
-//					cartEntity.setTotalPrice(cartEntity.getTotalPrice() - item.getTotalPrice());
-//				}
-//			}
 			Stream<CartItemEntity> stream = cartEntity.getItems().stream();
 			stream.forEach(itemEntity -> {
 				if (itemEntity.getProduct().getAvailable() == 0) {

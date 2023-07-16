@@ -37,11 +37,11 @@ public class CartEntity {
 	@Column(name = "total_quantity")
 	private int totalQuantity;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne()
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
 
-	@OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	private List<CartItemEntity> items;
 
 }

@@ -38,7 +38,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BlogEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int blogId;
 
 	@Column(name = "title")
@@ -57,7 +57,7 @@ public class BlogEntity {
 	@JoinColumn(name = "category_id")
 	private CategoryBlogEntity category;
 
-	@OneToMany(mappedBy = "blog", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "blog", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<CommentBlogEntity> listComment;
 
 	@Column(name = "created_by")

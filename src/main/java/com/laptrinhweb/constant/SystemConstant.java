@@ -12,4 +12,6 @@ public class SystemConstant {
 	public static final String PROCESSING = "PROCESSING";
 	public static final String SHIPPED = "SHIPPED";
 	public static final String DELIVERED = "DELIVERED";
+	public static final boolean IS_DEFAULT = true;
+	public static final boolean IS_NOT_DEFAULT = false;
 }

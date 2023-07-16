@@ -1,5 +1,6 @@
 package com.laptrinhweb.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -20,8 +21,8 @@ public class UserDto extends AbstractDto<UserDto> {
 	private String phoneNumber;
 	private String address;
 	private String verifyCode;
-	private List<AddressDto> listAddress;
+	private List<AddressDto> listAddress = new ArrayList<>();;
 	private short active;
-	private List<RoleDto> roles;
+	private List<RoleDto> roles = new ArrayList<>();;
 
 }

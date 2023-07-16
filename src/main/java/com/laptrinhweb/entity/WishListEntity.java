@@ -34,7 +34,7 @@ public class WishListEntity {
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
 
-	@OneToMany(mappedBy = "wishList", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "wishList", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<WishListProductEntity> products;
 
 }
